@@ -1,0 +1,12 @@
+server:
+  port: 80
+  servlet:
+    context-path: /
+
+spring:
+  http:
+    encoding:
+      force: true   #使用阿里的fastJson时必须配置此项，不然会乱码
+
+logging:
+  config: classpath:config/logback.xml
