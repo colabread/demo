@@ -18,6 +18,7 @@ public class BlockCheckTask {
     @Scheduled(cron = "0 */1 * * * ?")   //每分钟执行一次
     public void run(){
         log.info("【区块检查任务】开始执行");
+        log.info("【当前区块数据】高度：【" + BlockUtils.getBlockHeight() + "】，异常次数：【" + BlockUtils.getExceptionCount() + "】，警告次数：【" + BlockUtils.getSendMsgCount() + "】");
         String result = null;
         try {
             result = HttpUtils.doGet("http://47.244.98.189:8192/api/chains/ASCHBet/blocks/height", null);
@@ -33,24 +34,24 @@ public class BlockCheckTask {
         }else{
             Integer nowBlockHeight = jsonResult.getInteger("height");
             if(BlockUtils.getBlockHeight() == 0){
-                log.info("【区块检查任务】初始化区块高度");
+                log.info("【区块检查任务】初始化区块高度：【" + nowBlockHeight + "】");
                 BlockUtils.setBlockHeight(nowBlockHeight);
             }else{
-                if(BlockUtils.getBlockHeight() == nowBlockHeight){   // --> 区块高度不增加，区块异常
+                if(BlockUtils.getBlockHeight().equals(nowBlockHeight)){   // --> 区块高度不增加，区块异常
                     if(BlockUtils.getExceptionCount() >= 3){   // --> 异常次数超过三次
                         if(BlockUtils.getSendMsgCount() < 3){   // --> 短信通知次数小于3次，发送短信警告
-                            log.error("【区块检查任务】区块异常，次数超过三次，发送短信警告");
+                            log.error("【区块检查任务】区块异常，次数超过三次，发送短信警告，高度：【" + nowBlockHeight + "】");
                             sendMsg("666666");
                             BlockUtils.setSendMsgCount(BlockUtils.getSendMsgCount() + 1);
                         }else {
-                            log.error("【区块检查任务】区块异常，短信次数超过三次");
+                            log.error("【区块检查任务】区块异常，短信次数超过三次，高度：【" + nowBlockHeight + "】");
                         }
                     }else{
-                        log.error("【区块检查任务】区块异常，更新异常次数");
+                        log.error("【区块检查任务】区块异常，更新异常次数，高度：【" + nowBlockHeight + "】");
                         BlockUtils.setExceptionCount(BlockUtils.getExceptionCount() + 1);
                     }
                 }else{
-                    log.info("【区块检查任务】区块正常，更新高度");
+                    log.info("【区块检查任务】区块正常，更新高度，高度：【" + nowBlockHeight + "】");
                     BlockUtils.setBlockHeight(nowBlockHeight);
                 }
             }
