@@ -15,7 +15,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 @Slf4j
 public class BlockCheckTask {
 
-    @Scheduled(cron = "0 */1 * * * ?")   //每分钟执行一次
+    @Scheduled(cron = "0 */2 * * * ?")   //每分钟执行一次
     public void run(){
         log.info("【区块检查任务】开始执行");
         log.info("【当前区块数据】高度：【" + BlockUtils.getBlockHeight() + "】，异常次数：【" + BlockUtils.getExceptionCount() + "】，警告次数：【" + BlockUtils.getSendMsgCount() + "】");
