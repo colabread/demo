@@ -38,13 +38,13 @@ public class BlockCheckTask {
                 BlockUtils.setBlockHeight(nowBlockHeight);
             }else{
                 if(BlockUtils.getBlockHeight().equals(nowBlockHeight)){   // --> 区块高度不增加，区块异常
-                    if(BlockUtils.getExceptionCount() >= 2){   // --> 异常次数超过三次
-                        if(BlockUtils.getSendMsgCount() < 2){   // --> 短信通知次数小于3次，发送短信警告
-                            log.error("【区块检查任务】区块异常，次数超过三次，发送短信警告，高度：【" + nowBlockHeight + "】");
+                    if(BlockUtils.getExceptionCount() >= 1){   // --> 异常次数达到两次
+                        if(BlockUtils.getSendMsgCount() < 2){   // --> 短信通知次数小于2次，发送短信警告
+                            log.error("【区块检查任务】区块异常，次数达到两次，发送短信警告，高度：【" + nowBlockHeight + "】");
                             sendMsg("666666");
                             BlockUtils.setSendMsgCount(BlockUtils.getSendMsgCount() + 1);
                         }else {
-                            log.error("【区块检查任务】区块异常，短信次数超过三次，高度：【" + nowBlockHeight + "】");
+                            log.error("【区块检查任务】区块异常，短信次数超过两次，高度：【" + nowBlockHeight + "】");
                         }
                     }else{
                         log.error("【区块检查任务】区块异常，更新异常次数，高度：【" + nowBlockHeight + "】");

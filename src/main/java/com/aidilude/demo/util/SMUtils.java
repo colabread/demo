@@ -1,11 +1,14 @@
 package com.aidilude.demo.util;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 
+@Slf4j
 public class SMUtils {
 
     private static String encode = "GBK";
@@ -38,8 +41,7 @@ public class SMUtils {
             String result = reader.readLine();
             return result.indexOf("success") >= 0;
         } catch (Exception e) {
-            // TODO: 2018/9/3 短信异常处理
-            e.printStackTrace();
+            log.error("【短信发送异常】", e);
             return false;
         }
     }

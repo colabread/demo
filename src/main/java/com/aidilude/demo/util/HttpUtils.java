@@ -1,6 +1,7 @@
 package com.aidilude.demo.util;
 
 import com.alibaba.fastjson.JSON;
+import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
@@ -33,7 +34,13 @@ public class HttpUtils {
     public static String doGet(String url, Map<String, String> header) throws Exception{
         CloseableHttpClient httpClient = HttpClients.createDefault();
         CloseableHttpResponse response = null;
+        RequestConfig requestConfig = RequestConfig.custom()
+                .setSocketTimeout(3000)   //请求获取数据的超时时间(即响应时间)，单位毫秒
+                .setConnectTimeout(5000)   //设置连接超时时间，单位毫秒
+                .setConnectionRequestTimeout(1000)   //设置从connect Manager(连接池)获取Connection 超时时间，单位毫秒
+                .build();
         HttpGet httpGet = new HttpGet(url);
+        httpGet.setConfig(requestConfig);
         return getAction(url, header, httpClient, httpGet, response);
     }
 
@@ -48,7 +55,13 @@ public class HttpUtils {
     public static String doPost(String url, Map<String, String> header, String body) throws Exception{
         CloseableHttpClient httpClient = HttpClients.createDefault();
         CloseableHttpResponse response = null;
+        RequestConfig requestConfig = RequestConfig.custom()
+                .setSocketTimeout(3000)   //请求获取数据的超时时间(即响应时间)，单位毫秒
+                .setConnectTimeout(5000)   //设置连接超时时间，单位毫秒
+                .setConnectionRequestTimeout(1000)   //设置从connect Manager(连接池)获取Connection 超时时间，单位毫秒
+                .build();
         HttpPost httpPost = new HttpPost(url);
+        httpPost.setConfig(requestConfig);
         return postAction(url, header, body, httpClient, httpPost, response);
     }
 
@@ -63,7 +76,13 @@ public class HttpUtils {
     public static String doPut(String url, Map<String, String> header, String body) throws Exception{
         CloseableHttpClient httpClient = HttpClients.createDefault();
         CloseableHttpResponse response = null;
+        RequestConfig requestConfig = RequestConfig.custom()
+                .setSocketTimeout(3000)   //请求获取数据的超时时间(即响应时间)，单位毫秒
+                .setConnectTimeout(5000)   //设置连接超时时间，单位毫秒
+                .setConnectionRequestTimeout(1000)   //设置从connect Manager(连接池)获取Connection 超时时间，单位毫秒
+                .build();
         HttpPut httpPut = new HttpPut(url);
+        httpPut.setConfig(requestConfig);
         return putAction(url, header, body, httpClient, httpPut, response);
     }
 
@@ -77,7 +96,13 @@ public class HttpUtils {
     public static String doHttpsGet(String url, Map<String, String> header) throws Exception{
         CloseableHttpClient httpClient = createSSLClientDefault();
         CloseableHttpResponse response = null;
+        RequestConfig requestConfig = RequestConfig.custom()
+                .setSocketTimeout(3000)   //请求获取数据的超时时间(即响应时间)，单位毫秒
+                .setConnectTimeout(5000)   //设置连接超时时间，单位毫秒
+                .setConnectionRequestTimeout(1000)   //设置从connect Manager(连接池)获取Connection 超时时间，单位毫秒
+                .build();
         HttpGet httpGet = new HttpGet(url);
+        httpGet.setConfig(requestConfig);
         return getAction(url, header, httpClient, httpGet, response);
     }
 
@@ -92,7 +117,13 @@ public class HttpUtils {
     public static String doHttpsPost(String url, Map<String, String> header, String body) throws Exception {
         CloseableHttpClient httpClient = createSSLClientDefault();
         CloseableHttpResponse response = null;
+        RequestConfig requestConfig = RequestConfig.custom()
+                .setSocketTimeout(3000)   //请求获取数据的超时时间(即响应时间)，单位毫秒
+                .setConnectTimeout(5000)   //设置连接超时时间，单位毫秒
+                .setConnectionRequestTimeout(1000)   //设置从connect Manager(连接池)获取Connection 超时时间，单位毫秒
+                .build();
         HttpPost httpPost = new HttpPost(url);
+        httpPost.setConfig(requestConfig);
         return postAction(url, header, body, httpClient, httpPost, response);
     }
 
