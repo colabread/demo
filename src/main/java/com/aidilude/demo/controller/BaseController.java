@@ -40,6 +40,7 @@ public class BaseController {
         result.put("blockHeight", BlockUtils.getBlockHeight());
         result.put("exceptionCount", BlockUtils.getExceptionCount());
         result.put("sendMsgCount", BlockUtils.getSendMsgCount());
+        result.put("requestFailedCount", BlockUtils.getRequestFailedCount());
         return JSON.toJSONString(result);
     }
 

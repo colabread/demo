@@ -8,6 +8,8 @@ public class BlockUtils {
 
     private static Integer sendMsgCount = 0;
 
+    private static Integer requestFailedCount = 0;
+
     public static Integer getBlockHeight() {
         return blockHeight;
     }
@@ -32,9 +34,14 @@ public class BlockUtils {
         BlockUtils.sendMsgCount = sendMsgCount;
     }
 
+    public static Integer getRequestFailedCount() { return requestFailedCount; }
+
+    public static void setRequestFailedCount(Integer requestFailedCount) { BlockUtils.requestFailedCount = requestFailedCount; }
+
     public static void reset(){
         BlockUtils.exceptionCount = 0;
         BlockUtils.sendMsgCount = 0;
+        BlockUtils.requestFailedCount = 0;
     }
 
 }
