@@ -10,6 +10,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 
+import java.util.Calendar;
+import java.util.Date;
+
 @Configuration
 @EnableScheduling
 @Slf4j
@@ -97,7 +100,11 @@ public class BlockCheckTask {
     }
 
     public void sendMsg(String msg){
-        log.info("【区块检查任务】发送短信结果：" + SMUtils.sendMsg(msg, SMUtils.phoneTang));
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(new Date());
+        int time = cal.get(Calendar.HOUR_OF_DAY);
+        if(time >= 9 && time <= 22)
+            log.info("【区块检查任务】发送短信结果：" + SMUtils.sendMsg(msg, SMUtils.phoneDing));
         log.info("【区块检查任务】发送短信结果：" + SMUtils.sendMsg(msg, SMUtils.phoneYang));
         log.info("【区块检查任务】发送短信结果：" + SMUtils.sendMsg(msg, SMUtils.phoneDu));
     }

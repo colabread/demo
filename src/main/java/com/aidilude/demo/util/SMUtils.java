@@ -24,7 +24,7 @@ public class SMUtils {
 
     public static String phoneDu = "18408219153";
 
-    public static String phoneTang = "18582851776";
+    public static String phoneDing = "18582851776";
 
     public static boolean sendMsg(String msg, String phone) {
         System.setProperty("sun.net.client.defaultConnectTimeout", "30000"); //连接超时：30秒
